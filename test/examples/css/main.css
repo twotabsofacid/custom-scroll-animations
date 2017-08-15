@@ -1,0 +1,97 @@
+* {
+	margin: 0;
+	padding: 0;
+	font-family: 'FatFrank';
+}
+
+body {
+	text-align: center;
+	color: #333;
+}
+
+h1 {
+	margin: 1em auto 0;
+	font-size: 3em;
+}
+
+pre {
+	text-align: left;
+	display: inline-block;
+	margin: 1em auto;
+	font-size: 0.65em;
+	background-color: #ececec;
+	border-radius: 3px;
+	border: 1px solid #dddddd;
+	padding: 20px;
+	width: 250px;
+	font-family: menlo, 'Courier new';
+	background-image: linear-gradient(to bottom, #ffffff, #efefef);
+}
+
+button {
+	font-family: 'LacrimaSenza';
+	background-image: linear-gradient(to bottom, #efefef, #dbdbdb);
+	border-radius: 3px;
+	color: #111111;
+	font-size: 12px;
+	padding: 5px 14px;
+	border: solid #bfbfbf 1px;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+button.active {
+	background: #111111;
+	background-image: linear-gradient(to bottom, #111111, #333333);
+	border: solid #000000 1px;
+	color: #ffffff;
+	text-decoration: none;
+}
+
+button:focus {
+	outline: none;
+}
+
+.sub {
+	font-family: 'LacrimaSenza';
+	display: block;
+}
+
+h2 {
+	font-family: 'LacrimaSenza';
+	font-size: 22px;
+}
+
+p {
+	margin: 2em auto;
+}
+
+button .off {
+	font-weight: bold;
+	display: inline;
+}
+
+button .on {
+	font-weight: bold;
+	display: none;
+}
+
+button.active .off {
+	display: none;
+}
+
+button.active .on {
+	display: inline;
+}
+
+.full-height {
+	position: relative;
+	width: 100%;
+	height: 100vh;
+	left: 0;
+	top: 0;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
