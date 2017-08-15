@@ -4,7 +4,7 @@ var merge = require('lodash/merge');
 var scrollTrack = require('scrollmonitor');
 
 /**
- * Constructor description
+ * Constructor Custom Scroll Animations at your fingertips
  *
  * @class CustomScrollAnimations
  *
