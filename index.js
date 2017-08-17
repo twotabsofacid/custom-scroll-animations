@@ -67,6 +67,8 @@ CustomScrollAnimations.prototype._onEnterViewport = function () {
 				this.options.customAnimations[this.watchers[i].customAnimation](this.watchers[i].watchItem);
 			}
 			this.scrollTriggerElems[i].classList.add('in-viewport');
+			this.watchers[i].destroy();
+			this.watchers[i] = false;
 		}
 	}
 };
