@@ -17,5 +17,5 @@ var customScrollAnimations = new CustomScrollAnimations({
 
 document.getElementById("destroy").addEventListener('click', function(e) {
 	e.preventDefault();
-	scrollTriggerAnimations.destroy();
+	customScrollAnimations.destroy();
 });
