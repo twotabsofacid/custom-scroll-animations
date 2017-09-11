@@ -4,52 +4,54 @@ var merge = require('lodash/merge');
 var scrollTrack = require('scrollmonitor');
 
 /**
- * Constructor Custom Scroll Animations at your fingertips
+ * Constructor Scroll trigger module that allows for custom animations
  *
  * @class CustomScrollAnimations
  *
- * @classdesc a module to quickly develop custom scroll animations
+ * @classdesc a module to quickly develop scroll trigger animations
  *
- * @param {options} object - Object instantiation options
+ * @param {Object} options - Object instantiation options
+ * @param {Number} [options.triggerClass='.scroll-trigger'] The class to add scroll trigger events to
+ * @param {Number} [options.activeClass='in-viewport'] The class to add to elements once triggered
+ * @param {Number} [options.animations={}] An object of animation functions
  */
-function CustomScrollAnimations(options) {
-	// Create the options
-	this.options = merge({}, CustomScrollAnimations.DEFAULTS, options || {});
+function CustomScrollAnimations (options) {
 	// References
+	this.options = merge({}, CustomScrollAnimations.DEFAULTS, options);
 	this.scrollTriggerElems = [];
+	this.scrollTriggerElemsLen = 0;
 	this.watchers = [];
     // All bindings
-	this._onEnterViewport = this._onEnterViewport.bind(this);
 	this.destroy = this.destroy.bind(this);
     // Setup
 	this._setup();
 }
 
 CustomScrollAnimations.DEFAULTS = {
-	className: '.scroll-trigger',
-	customAnimations: {}
+	triggerClass: '.scroll-trigger',
+	activeClass: 'in-viewport',
+	animations: {}
 };
 
 module.exports = CustomScrollAnimations;
 
 /**
  * Setup method
+ * @private
  * @return {null}
  */
 CustomScrollAnimations.prototype._setup = function () {
 	var i;
 	var scrollOffset;
-	var customAnimation;
-	this.scrollTriggerElems = [].slice.call(document.querySelectorAll(this.options.className));
+	this.scrollTriggerElems = [].slice.call(document.querySelectorAll(this.options.triggerClass));
 	this.scrollTriggerElemsLen = this.scrollTriggerElems.length;
 	i = this.scrollTriggerElemsLen;
 	while (i--) {
 		scrollOffset = parseInt(this.scrollTriggerElems[i].getAttribute('data-scroll-offset') || 0, 10);
-		customAnimation = this.scrollTriggerElems[i].getAttribute('data-custom-animation');
 		this.watchers[i] = scrollTrack.create(this.scrollTriggerElems[i], scrollOffset);
-		this.watchers[i].customAnimation = customAnimation;
+		this.watchers[i].customAnimation = this.scrollTriggerElems[i].getAttribute('data-custom-animation');
 		this.watchers[i].customAnimationHasRun = false;
-		this.watchers[i].enterViewport(this._onEnterViewport);
+		this.watchers[i].enterViewport(this._onEnterViewport.bind(this, this.watchers[i]));
 	}
 };
 
@@ -58,18 +60,15 @@ CustomScrollAnimations.prototype._setup = function () {
  * @private
  * @return {null}
  */
-CustomScrollAnimations.prototype._onEnterViewport = function () {
-	var i = this.scrollTriggerElemsLen;
-	while (i--) {
-		if (this.watchers[i] && (this.watchers[i].isInViewport || this.watchers[i].isFullyInViewport)) {
-			if (this.watchers[i].customAnimation && !this.watchers[i].customAnimationHasRun) {
-				this.watchers[i].customAnimationHasRun = true;
-				this.options.customAnimations[this.watchers[i].customAnimation](this.watchers[i].watchItem);
-			}
-			this.scrollTriggerElems[i].classList.add('in-viewport');
-			this.watchers[i].destroy();
-			this.watchers[i] = false;
+CustomScrollAnimations.prototype._onEnterViewport = function (watcher) {
+	if (watcher.isInViewport || watcher.isFullyInViewport) {
+		if (watcher.customAnimation && !watcher.customAnimationHasRun) {
+			watcher.customAnimationHasRun = true;
+			this.options.animations[watcher.customAnimation](watcher.watchItem);
 		}
+		watcher.watchItem.classList.add(this.options.activeClass);
+		watcher.destroy();
+		watcher = null;
 	}
 };
 
@@ -79,8 +78,11 @@ CustomScrollAnimations.prototype._onEnterViewport = function () {
  * @return {null}
  */
 CustomScrollAnimations.prototype.destroy = function () {
-	let i = this.watchers.length;
+	var i = this.watchers.length;
 	while (i--) {
-		this.watchers[i].destroy();
+		if (this.watchers[i] && typeof this.watchers[i].destroy === 'function') {
+			this.watchers[i].destroy();
+			this.watchers[i] = null;
+		}
 	}
 };

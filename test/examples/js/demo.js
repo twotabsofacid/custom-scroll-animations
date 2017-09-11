@@ -1,8 +1,21 @@
+
 'use strict';
 
+/**
+ * Import all modules
+ */
 var CustomScrollAnimations = require('./../../../');
-var animations = require('./animations');
+var customAnimations = require('./animations');
 
-new CustomScrollAnimations({
-	customAnimations: animations
+/**
+ * Instantiate the CustomScrollAnimations,
+ * with custom animations passed in
+ */
+var customScrollAnimations = new CustomScrollAnimations({
+	animations: customAnimations
+});
+
+document.getElementById("destroy").addEventListener('click', function(e) {
+	e.preventDefault();
+	scrollTriggerAnimations.destroy();
 });

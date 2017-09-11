@@ -5,6 +5,7 @@
   "author": "Sean Scanlan <seanmichaelscanlan@gmail.com>",
   "main": "index.js",
   "scripts": {
+    "build": "npm run demo",
     "coverage": "mkdir -p coverage && browserify test/spec/test.js -p tape-istanbul/plugin | tape-run | tape-istanbul --output coverage/coverage.json && npm run report",
     "report": "istanbul report --root coverage lcov && open coverage/lcov-report/index.html",
     "demo": "mkdir -p tmp/ && browserify test/examples/js/demo.js -o tmp/demo.js",

@@ -1,14 +1,35 @@
 'use strict';
 
 module.exports = {
-	testAnimation: function(elem) {
-		console.log('we have a test animation', elem);
-		elem.style.opacity = '0';
-		elem.style.transform = 'translateY(800px) rotate(17deg)';
-		setTimeout(function() {
-			elem.style.transitionDuration = '1s';
-			elem.style.opacity = '1';
-			elem.style.transform = 'translateY(0) rotate(0deg)';
-		}, 1000);
+	browserTestAnimation: function(elem) {
+		var h1Elem = elem.querySelector('h1');
+		var h2Elem = elem.querySelector('h2');
+		TweenLite.set(h1Elem, {
+			opacity: 0,
+			scale: 0,
+			rotation: '27deg'
+		});
+		TweenLite.set(h2Elem, {
+			opacity: 0,
+			scale: 0,
+			rotation: '1080deg'
+		})
+		TweenLite.to(h1Elem, 2, {
+			ease: Elastic.easeOut.config(1, 0.2),
+			opacity: 1,
+			scale: 1,
+			rotation: '0deg',
+			onComplete: function() {
+				TweenLite.to(h2Elem, 2, {
+					ease: Power2.easeOut,
+					opacity: 1,
+					scale: 1,
+					rotation: '0deg'
+				})
+			}
+		});
+	},
+	tapeTestAnimation: function(elem) {
+		return true;
 	}
 }
