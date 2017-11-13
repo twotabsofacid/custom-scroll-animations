@@ -14,6 +14,8 @@ Install via npm:
 $ npm i custom-scroll-animations --save
 ```
 
+Here's a [link to the package](https://www.npmjs.com/package/custom-scroll-animations).
+
 ## Usage
 
 You can run the custom scroll animations like so:
