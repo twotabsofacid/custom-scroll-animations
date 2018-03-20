@@ -25,7 +25,7 @@ var CustomScrollAnimations = require('custom-scroll-animations');
 var testAnimations = require('./modules/test-animations');
 var customScrollAnimations = new CustomScrollAnimations({
 	className: '.scroll-trigger',
-	customAnimations: testAnimations
+	animations: testAnimations
 });
 ```
 
