@@ -65,7 +65,7 @@ Alternatively, you don't have to use custom animations or anything like that. Yo
 ```javascript
 var CustomScrollAnimations = require('custom-scroll-animations');
 var customScrollAnimations = new CustomScrollAnimations({
-	className: '.scroll-trigger'
+	triggerClass: '.scroll-trigger'
 });
 ```
 

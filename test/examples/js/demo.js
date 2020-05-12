@@ -12,6 +12,7 @@ var customAnimations = require('./animations');
  * with custom animations passed in
  */
 var customScrollAnimations = new CustomScrollAnimations({
+	triggerClass: '.trigger-animation-class-name',
 	animations: customAnimations
 });
 
