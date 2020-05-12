@@ -24,7 +24,7 @@ You can run the custom scroll animations like so:
 var CustomScrollAnimations = require('custom-scroll-animations');
 var testAnimations = require('./modules/test-animations');
 var customScrollAnimations = new CustomScrollAnimations({
-	className: '.scroll-trigger',
+	triggerClass: '.scroll-trigger',
 	animations: testAnimations
 });
 ```
