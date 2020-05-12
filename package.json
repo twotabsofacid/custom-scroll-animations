@@ -1,6 +1,6 @@
 {
   "name": "custom-scroll-animations",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "a module to quickly develop custom scroll animations",
   "author": "Sean Scanlan <seanmichaelscanlan@gmail.com>",
   "main": "index.js",
